@@ -15,12 +15,13 @@ class listOfTasks {
         const newTask = document.getElementById('new-task');
         this.tasks.push(new Task (newTask.value, this.tasks.length));
         this.updateLocalStorage();
-        populateList();
+        this.populateList();
         newTask.value = '';
     }
 
     populateList() {
-    const tasksList = document.getElementById('list-of-tasks');
+        const tasksList = document.getElementById('list-of-tasks');
+        tasksList.innerHTML = '';
         for (const task of this.tasks){
             tasksList.innerHTML += `
             <li>

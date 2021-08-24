@@ -1,3 +1,27 @@
-body {
-    background-color: rgb(226, 226, 226);
-}
+.main-container {
+    background-color: rgb(243, 243, 243);
+    height: 100vh;
+  }
+  
+  #list-container {
+    background-color: white;
+    width: 500px;
+    margin: auto;
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+  
+  *:focus {
+    outline: none;
+  }
+  
+  .sync-icon {
+    transform: rotate(90deg);
+    font-size: small;
+  }
+  
+  .clear-container {
+    background-color: rgb(243, 243, 243);
+  }

@@ -1,4 +1,6 @@
 import './style.css';
+import './bootstrap.min.css';
+import './popper.min.js';
 import Task from "./task";
 
 class listOfTasks {
@@ -24,9 +26,14 @@ class listOfTasks {
         tasksList.innerHTML = '';
         for (const task of this.tasks){
             tasksList.innerHTML += `
-            <li>
-                <span>${task.description}: </span>
-                <span>${task.index}</span>
+            <li class="w-100 p-3 border-bottom">
+                <div class="w-100 d-flex justify-content-between">
+                    <div>
+                        <input type="checkbox" id="check-${task.index}">
+                        <span class="px-2">${task.description}</span>
+                    </div>
+                    <i class="fas fa-ellipsis-v text-secondary"></i>
+                </div>
             </li>
             `;
         };

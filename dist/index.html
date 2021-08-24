@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/999798a4a5.js" crossorigin="anonymous"></script>
     <title>TO DO LIST</title>
 <script defer src="main.js"></script></head>
 <body>
-    <h1>My To-do list!</h1>
-    <div>
-        <div>
-            <span>Today's To Do</span>
-            <span>Refresh icon</span>
+    <div class="main-container">
+        <h1 class="text-center">My To-do list!</h1>
+        <div id="list-container" class="my-5 p-0 shadow">
+            <div class="d-flex justify-content-between p-3 border-bottom">
+                <h2 class="fs-6 fw-normal m-0">Today's To Do</h2>
+                <i class="fas fa-sync text-secondary sync-icon"></i>
+            </div>
+            <div class="p-3 border-bottom d-flex justify-content-between">
+                <form class="w-100 d-flex justify-content-between">
+                    <input class="w-100 border-0 fw-lighter fst-italic" type="text" id="new-task" name="new-task" placeholder="Add to your list...">
+                    <input class="bg-white border-0" type="submit" id="new-task-btn" name="new-task-btn" value="" title="Press ENTER to submit">
+                    <i class="fas fa-level-down-alt text-secondary sync-icon me-2"></i>
+                </form>
+            </div>
+            <ul id="list-of-tasks" class="p-0 m-0"></ul>
+            <div class="clear-container text-center w-100 p-3">
+                <a class="text-secondary text-decoration-none fw-light">Clear all completed</a>
+            </div>
         </div>
-        <div>
-            <form>
-                <input type="text" id="new-task" name="new-task" placeholder="Add to your list...">
-                <input type="submit" id="new-task-btn" name="new-task-btn" value="" title="Press ENTER to submit">
-            </form>
-        </div>
-        <ul id="list-of-tasks">
-
-        </ul>
     </div>
 </body>
 </html>

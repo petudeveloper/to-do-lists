@@ -25,3 +25,8 @@ ul {
 .clear-container {
   background-color: rgb(243, 243, 243);
 }
+
+.task-completed {
+  text-decoration: line-through;
+  font-style: italic;
+}

@@ -31,7 +31,7 @@ class ListOfTasks {
             <li class="w-100 p-3 border-bottom">
                 <div class="w-100 d-flex justify-content-between">
                     <div>
-                        <input type="checkbox" id="check-${task.index}" ${task.completed? 'checked' : ''}>
+                        <input type="checkbox" id="check-${task.index}" ${task.completed ? 'checked' : ''}>
                         <span id="span-${task.index}" class="px-2 ${task.completed ? 'task-completed' : ''}">${task.description}</span>
                     </div>
                     <i class="fas fa-ellipsis-v text-secondary"></i>

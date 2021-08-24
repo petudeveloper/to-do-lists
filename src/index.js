@@ -1,31 +1,32 @@
+/* eslint-disable no-restricted-syntax */
 import './style.css';
 import './bootstrap.min.css';
 import './popper.min.js';
-import Task from "./task";
+import Task from './task.js';
 
-class listOfTasks {
-    constructor() {
-        this.tasks = (localStorage.myTasks != null) ? JSON.parse(localStorage.myTasks) : [];
-        this.populateList();
-    }
+class ListOfTasks {
+  constructor() {
+    this.tasks = (localStorage.myTasks != null) ? JSON.parse(localStorage.myTasks) : [];
+    this.populateList();
+  }
 
-    updateLocalStorage() {
-        localStorage.myTasks = JSON.stringify(this.tasks);
-    }
+  updateLocalStorage() {
+    localStorage.myTasks = JSON.stringify(this.tasks);
+  }
 
-    addTask() {
-        const newTask = document.getElementById('new-task');
-        this.tasks.push(new Task (newTask.value, this.tasks.length));
-        this.updateLocalStorage();
-        this.populateList();
-        newTask.value = '';
-    }
+  addTask() {
+    const newTask = document.getElementById('new-task');
+    this.tasks.push(new Task(newTask.value, this.tasks.length));
+    this.updateLocalStorage();
+    this.populateList();
+    newTask.value = '';
+  }
 
-    populateList() {
-        const tasksList = document.getElementById('list-of-tasks');
-        tasksList.innerHTML = '';
-        for (const task of this.tasks){
-            tasksList.innerHTML += `
+  populateList() {
+    const tasksList = document.getElementById('list-of-tasks');
+    tasksList.innerHTML = '';
+    for (const task of this.tasks) {
+      tasksList.innerHTML += `
             <li class="w-100 p-3 border-bottom">
                 <div class="w-100 d-flex justify-content-between">
                     <div>
@@ -36,16 +37,16 @@ class listOfTasks {
                 </div>
             </li>
             `;
-        };
     }
+  }
 }
 
-const myListOfTasks = new listOfTasks();
+const myListOfTasks = new ListOfTasks();
 
 window.onload = myListOfTasks.populateList.apply(myListOfTasks);
 
 const newTaskButton = document.getElementById('new-task-btn');
-newTaskButton.addEventListener( 'click', (e) => {
-    e.preventDefault();
-    myListOfTasks.addTask()
+newTaskButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  myListOfTasks.addTask();
 });

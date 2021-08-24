@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-restricted-syntax */
 import './style.css';
 import './bootstrap.min.css';
@@ -30,13 +31,20 @@ class ListOfTasks {
             <li class="w-100 p-3 border-bottom">
                 <div class="w-100 d-flex justify-content-between">
                     <div>
-                        <input type="checkbox" id="check-${task.index}">
+                        <input type="checkbox" id="check-${task.index}" ${task.completed? 'checked' : ''}>
                         <span class="px-2">${task.description}</span>
                     </div>
                     <i class="fas fa-ellipsis-v text-secondary"></i>
                 </div>
             </li>
             `;
+    }
+    for (const task of this.tasks) {
+      const checkbox = document.getElementById(`check-${task.index}`);
+      checkbox.addEventListener('change', () => {
+        this.tasks[task.index].completed = !this.tasks[task.index].completed;
+        this.updateLocalStorage();
+      });
     }
   }
 }

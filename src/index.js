@@ -42,6 +42,7 @@ class listOfTasks {
 
 const myListOfTasks = new listOfTasks();
 
+window.onload = myListOfTasks.populateList.apply(myListOfTasks);
 
 const newTaskButton = document.getElementById('new-task-btn');
 newTaskButton.addEventListener( 'click', (e) => {

@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-restricted-syntax */
 import Task from './task.js';
@@ -18,8 +19,17 @@ export default class ListOfTasks {
       task.index = i;
       i += 1;
     });
+  }
+
+  #moveArrayItemToNewIndex(oldIndex, newIndex) {
+    if (newIndex >= this.tasks.length) {
+      let k = newIndex - this.tasks.length + 1;
+      while (k--) {
+        this.tasks.push(undefined);
+      }
+    }
+    this.tasks.splice(newIndex, 0, this.tasks.splice(oldIndex, 1)[0]);
     this.updateLocalStorage();
-    this.populateList();
   }
 
   // function for adding a new task
@@ -75,6 +85,8 @@ export default class ListOfTasks {
       trash.addEventListener('click', () => {
         this.tasks.splice(task.index, 1);
         this.#updateIndexes();
+        this.updateLocalStorage();
+        this.populateList();
       });
     }
   }
@@ -85,6 +97,8 @@ export default class ListOfTasks {
     clearAllElement.addEventListener('click', () => {
       this.tasks = this.tasks.filter((task) => task.completed === false);
       this.#updateIndexes();
+      this.updateLocalStorage();
+      this.populateList();
     });
   }
 
@@ -96,8 +110,14 @@ export default class ListOfTasks {
       listContainer.addEventListener('dragstart', () => {
         listContainer.classList.add('dragging');
       });
-      listContainer.addEventListener('dragend', () => {
+      listContainer.addEventListener('dragend', (e) => {
+        const element = e.target;
+        const ul = [...document.querySelectorAll('ul li')];
+        const newIndex = ul.findIndex((li) => li.id === element.id);
+        this.#moveArrayItemToNewIndex(task.index, newIndex);
         listContainer.classList.remove('dragging');
+        this.#updateIndexes();
+        this.updateLocalStorage();
       });
       tasksList.addEventListener('dragover', (e) => {
         e.preventDefault();

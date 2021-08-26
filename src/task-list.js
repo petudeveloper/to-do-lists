@@ -11,6 +11,16 @@ export default class ListOfTasks {
     localStorage.myTasks = JSON.stringify(this.tasks);
   }
 
+  #updateIndexes() {
+    let i = 0;
+    this.tasks.forEach((task) => {
+      task.index = i;
+      i += 1;
+    });
+    this.updateLocalStorage();
+    this.populateList();
+  }
+
   // function for adding a new task
   addTask() {
     const newTask = document.getElementById('new-task');
@@ -63,13 +73,7 @@ export default class ListOfTasks {
       });
       trash.addEventListener('click', () => {
         this.tasks.splice(task.index, 1);
-        let i = 0;
-        this.tasks.forEach((task) => {
-          task.index = i;
-          i += 1;
-        });
-        this.updateLocalStorage();
-        this.populateList();
+        this.#updateIndexes();
       });
     }
   }
@@ -79,13 +83,7 @@ export default class ListOfTasks {
     const clearAllElement = document.getElementById('clear-all');
     clearAllElement.addEventListener('click', () => {
       this.tasks = this.tasks.filter((task) => task.completed === false);
-      let i = 0;
-      this.tasks.forEach((task) => {
-        task.index = i;
-        i += 1;
-      });
-      this.updateLocalStorage();
-      this.populateList();
+      this.#updateIndexes();
     });
   }
 

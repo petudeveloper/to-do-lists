@@ -20,6 +20,19 @@ export default class ListOfTasks {
     newTask.value = '';
   }
 
+  // function for updating "completed" status
+  updateCompleteStatus() {
+    for (const task of this.tasks) {
+      const checkbox = document.getElementById(`check-${task.index}`);
+      const span = document.getElementById(`span-${task.index}`);
+      checkbox.addEventListener('change', () => {
+        this.tasks[task.index].completed = !this.tasks[task.index].completed;
+        span.classList.toggle('task-completed');
+        this.updateLocalStorage();
+      });
+    }
+  }
+
   // function for editing task descriptions
   editTask() {
     for (const task of this.tasks) {
@@ -47,15 +60,7 @@ export default class ListOfTasks {
               </li>
               `;
     }
-    for (const task of this.tasks) {
-      const checkbox = document.getElementById(`check-${task.index}`);
-      const span = document.getElementById(`span-${task.index}`);
-      checkbox.addEventListener('change', () => {
-        this.tasks[task.index].completed = !this.tasks[task.index].completed;
-        span.classList.toggle('task-completed');
-        this.updateLocalStorage();
-      });
-    }
     this.editTask();
+    this.updateCompleteStatus();
   }
 }

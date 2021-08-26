@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-restricted-syntax */
 import Task from './task.js';
 
@@ -87,13 +88,48 @@ export default class ListOfTasks {
     });
   }
 
+  // function for drag task feature
+  dragTask() {
+    const tasksList = document.getElementById('list-of-tasks');
+    for (const task of this.tasks) {
+      const listContainer = document.getElementById(`li-${task.index}`);
+      listContainer.addEventListener('dragstart', () => {
+        listContainer.classList.add('dragging');
+      });
+      listContainer.addEventListener('dragend', () => {
+        listContainer.classList.remove('dragging');
+      });
+      tasksList.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(e.clientY);
+        const draggable = document.querySelector('.dragging');
+        if (afterElement == null) {
+          tasksList.appendChild(draggable);
+        } else {
+          tasksList.insertBefore(draggable, afterElement);
+        }
+      });
+    }
+    function getDragAfterElement(y) {
+      const draggableElements = [...document.querySelectorAll('.draggable:not(.dragging')];
+      return draggableElements.reduce((closest, child) => {
+        const box = child.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+        if (offset < 0 && offset > closest.offset) {
+          return { offset, element: child };
+        }
+        return closest;
+      }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+  }
+
   // function for rendering list of tasks
   populateList() {
     const tasksList = document.getElementById('list-of-tasks');
     tasksList.innerHTML = '';
     for (const task of this.tasks) {
       tasksList.innerHTML += `
-              <li class="w-100 p-3 border-bottom">
+              <li id="li-${task.index}" class="w-100 p-3 border-bottom draggable" draggable="true">
                   <div id="div-${task.index}" class="w-100 d-flex justify-content-between">
                       <div class="w-100">
                           <input type="checkbox" id="check-${task.index}" ${task.completed ? 'checked' : ''}>
@@ -109,5 +145,6 @@ export default class ListOfTasks {
     this.updateCompleteStatus();
     this.deleteTask();
     this.clearAll();
+    this.dragTask();
   }
 }

@@ -20,6 +20,17 @@ export default class ListOfTasks {
     newTask.value = '';
   }
 
+  // function for editing task descriptions
+  editTask() {
+    for (const task of this.tasks) {
+      const taskDescription = document.getElementById(`span-${task.index}`);
+      taskDescription.addEventListener('change', () => {
+        task.description = taskDescription.value;
+        this.updateLocalStorage();
+      });
+    }
+  }
+
   populateList() {
     const tasksList = document.getElementById('list-of-tasks');
     tasksList.innerHTML = '';
@@ -29,7 +40,7 @@ export default class ListOfTasks {
                   <div class="w-100 d-flex justify-content-between">
                       <div>
                           <input type="checkbox" id="check-${task.index}" ${task.completed ? 'checked' : ''}>
-                          <span id="span-${task.index}" class="px-2 ${task.completed ? 'task-completed' : ''}">${task.description}</span>
+                          <input type="text" id="span-${task.index}" class="px-2 border-0 ${task.completed ? 'task-completed' : ''}" value="${task.description}"></input>
                       </div>
                       <i class="fas fa-ellipsis-v text-secondary"></i>
                   </div>
@@ -45,6 +56,6 @@ export default class ListOfTasks {
         this.updateLocalStorage();
       });
     }
+    this.editTask();
   }
 }
-

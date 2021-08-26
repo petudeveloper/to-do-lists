@@ -11,7 +11,7 @@ export default class ListOfTasks {
     localStorage.myTasks = JSON.stringify(this.tasks);
   }
 
-
+  // function for adding a new task
   addTask() {
     const newTask = document.getElementById('new-task');
     this.tasks.push(new Task(newTask.value, this.tasks.length));

@@ -20,7 +20,7 @@ export default class ListOfTasks {
     newTask.value = '';
   }
 
-  // function for updating "completed" status
+  // function for updating task "completed" status
   updateCompleteStatus() {
     for (const task of this.tasks) {
       const checkbox = document.getElementById(`check-${task.index}`);
@@ -44,23 +44,56 @@ export default class ListOfTasks {
     }
   }
 
+  // function for deleting a task
+  deleteTask() {
+    for (const task of this.tasks) {
+      const divContainer = document.getElementById(`div-${task.index}`);
+      const taskIcon = document.getElementById(`icon-${task.index}`);
+      const trash = document.getElementById(`trash-icon-${task.index}`);
+      divContainer.addEventListener('focusin', () => {
+        taskIcon.classList.add('d-none');
+        trash.classList.remove('d-none');
+      });
+      divContainer.addEventListener('focusout', () => {
+        setTimeout(() => {
+          taskIcon.classList.add('d-block');
+          taskIcon.classList.remove('d-none');
+          trash.classList.add('d-none');
+        }, 100);
+      });
+      trash.addEventListener('click', () => {
+        this.tasks.splice(task.index, 1);
+        let i = 0;
+        this.tasks.forEach((task) => {
+          task.index = i;
+          i += 1;
+        });
+        this.updateLocalStorage();
+        this.populateList();
+      });
+    }
+  }
+
+  // function for rendering list of tasks
   populateList() {
     const tasksList = document.getElementById('list-of-tasks');
     tasksList.innerHTML = '';
     for (const task of this.tasks) {
       tasksList.innerHTML += `
               <li class="w-100 p-3 border-bottom">
-                  <div class="w-100 d-flex justify-content-between">
-                      <div>
+                  <div id="div-${task.index}" class="w-100 d-flex justify-content-between">
+                      <div class="w-100">
                           <input type="checkbox" id="check-${task.index}" ${task.completed ? 'checked' : ''}>
-                          <input type="text" id="span-${task.index}" class="px-2 border-0 ${task.completed ? 'task-completed' : ''}" value="${task.description}"></input>
+                          <input type="text" id="span-${task.index}" class="w-75 px-2 border-0 ${task.completed ? 'task-completed' : ''}" value="${task.description}"></input>
                       </div>
-                      <i class="fas fa-ellipsis-v text-secondary"></i>
+                      <i id="icon-${task.index}" class="clickable fas fa-ellipsis-v text-secondary"></i>
+                      <i id="trash-icon-${task.index}" class="clickable d-none far fa-trash-alt"></i>
                   </div>
               </li>
               `;
     }
     this.editTask();
     this.updateCompleteStatus();
+    this.deleteTask();
   }
 }

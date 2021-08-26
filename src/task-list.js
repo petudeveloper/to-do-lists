@@ -74,6 +74,21 @@ export default class ListOfTasks {
     }
   }
 
+  // function for the "Clear all completed" button
+  clearAll() {
+    const clearAllElement = document.getElementById('clear-all');
+    clearAllElement.addEventListener('click', () => {
+      this.tasks = this.tasks.filter((task) => task.completed === false);
+      let i = 0;
+      this.tasks.forEach((task) => {
+        task.index = i;
+        i += 1;
+      });
+      this.updateLocalStorage();
+      this.populateList();
+    });
+  }
+
   // function for rendering list of tasks
   populateList() {
     const tasksList = document.getElementById('list-of-tasks');
@@ -95,5 +110,6 @@ export default class ListOfTasks {
     this.editTask();
     this.updateCompleteStatus();
     this.deleteTask();
+    this.clearAll();
   }
 }

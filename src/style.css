@@ -30,3 +30,7 @@ ul {
   text-decoration: line-through;
   font-style: italic;
 }
+
+.clickable:hover {
+  cursor: pointer;
+}

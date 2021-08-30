@@ -15,7 +15,7 @@
 
 ## Live Demo
 
-[Live Demo Link(TBA)](https://livedemo.com)
+[Live Demo Link](https://petumazo.github.io/to-do-lists/)
 
 
 ## Getting Started

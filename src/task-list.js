@@ -4,7 +4,6 @@ import Task from './task.js';
 export default class ListOfTasks {
   constructor() {
     this.tasks = (localStorage.myTasks != null) ? JSON.parse(localStorage.myTasks) : [];
-    this.populateList();
   }
 
   updateLocalStorage() {
@@ -111,4 +110,3 @@ export default class ListOfTasks {
     this.clearAll();
   }
 }
-

@@ -39,20 +39,21 @@ describe('Add task', () => {
     expect(myMockList.addTask).toBeDefined();
   });
 
-  test('should add new task to the local storage', () => {
+  test('should add new task to the localstorage', () => {
     myMockList.addTask('Task 1');
-    expect(localStorage.length).toBe(1);
+
+    expect(myMockList.tasks.length).toBe(1);
   });
 });
 
 describe('Delete task', () => {
-    test('Should be define', () => {
-      expect(myMockList.deleteTask).toBeDefined();
-    });
-  
-    test('should delete task from local storage', () => {
-      myMockList.deleteTask();
-  
-      expect(localStorage.length).toBe(1);
-    });
+  test('Should be define', () => {
+    expect(myMockList.deleteTask).toBeDefined();
   });
+  test('should delete task from localstorage', () => {
+    const listLength = myMockList.tasks.length;
+    myMockList.deleteTask();
+
+    expect(myMockList.tasks.length).toBe(listLength - 1);
+  });
+});

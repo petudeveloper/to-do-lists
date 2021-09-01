@@ -41,7 +41,18 @@ describe('Add task', () => {
 
   test('should add new task to the local storage', () => {
     myMockList.addTask('Task 1');
-
     expect(localStorage.length).toBe(1);
   });
 });
+
+describe('Delete task', () => {
+    test('Should be define', () => {
+      expect(myMockList.deleteTask).toBeDefined();
+    });
+  
+    test('should delete task from local storage', () => {
+      myMockList.deleteTask();
+  
+      expect(localStorage.length).toBe(1);
+    });
+  });

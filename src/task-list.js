@@ -111,3 +111,4 @@ export default class ListOfTasks {
     this.clearAll();
   }
 }
+

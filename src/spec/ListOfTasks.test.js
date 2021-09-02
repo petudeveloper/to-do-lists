@@ -69,9 +69,37 @@ describe('Editing task', () => {
     const newTask = document.getElementById('new-task');
     newTask.value = 'Task 1';
     myMockList.addTask();
+    const index = myMockList.tasks.length - 1;
+    const mockEdit = jest.fn((text) => {
+      myMockList.tasks[index].description = text;
+    });
 
-    myMockList.tasks[0].description = 'task 2';
+    const newText = 'task 2';
+    mockEdit(newText);
 
     expect(myMockList.tasks[0].description).toBe('task 2');
+  });
+});
+
+describe('updateCompleteStatus for task', () => {
+  test('Should be define', () => {
+    expect(myMockList.updateCompleteStatus).toBeDefined();
+  });
+
+  test('Should the status of an existing task', () => {
+    const newTask = document.getElementById('new-task');
+    newTask.value = 'Task 2';
+    myMockList.addTask();
+    myMockList.populateList();
+    const index = myMockList.tasks.length - 1;
+    const checkbox = document.getElementById(`check-${index}`);
+    const mockChange = jest.fn(() => {
+      myMockList.tasks[index].complete = !myMockList.tasks[index].complete
+    });
+
+    checkbox.checked = true;
+    mockChange();
+
+    expect(myMockList.tasks[index].complete).toBeTruthy();
   });
 });

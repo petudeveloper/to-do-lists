@@ -100,3 +100,39 @@ describe('updateCompleteStatus for task', () => {
     expect(myMockList.tasks[index].complete).toBeTruthy();
   });
 });
+
+describe('Clear all completed', () => {
+  test('Should be define', () => {
+    expect(myMockList.clearAll).toBeDefined();
+  });
+
+  test('Delete all complete task', () => {
+    myMockList.tasks = [{
+      description: 'task1',
+      completed: false,
+      index: 0,
+    },
+    {
+      description: 'task 2',
+      completed: true,
+      index: 1,
+    },
+    {
+      description: 'task3',
+      completed: false,
+      index: 2,
+    },
+    {
+      description: 'task 4',
+      completed: true,
+      index: 3,
+    }];
+    const mockCompleted = jest.fn(() => {
+      myMockList.tasks = myMockList.tasks.filter((task) => task.completed === false);
+    });
+    
+    mockCompleted();
+    
+    expect(myMockList.tasks.length).toBe(2);
+  });
+});

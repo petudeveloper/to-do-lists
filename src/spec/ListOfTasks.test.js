@@ -92,7 +92,7 @@ describe('updateCompleteStatus for task', () => {
     myMockList.addTask();
     const index = myMockList.tasks.length - 1;
     const mockChange = jest.fn(() => {
-      myMockList.tasks[index].complete = !myMockList.tasks[index].complete
+      myMockList.tasks[index].complete = !myMockList.tasks[index].complete;
     });
 
     mockChange();
@@ -130,9 +130,9 @@ describe('Clear all completed', () => {
     const mockCompleted = jest.fn(() => {
       myMockList.tasks = myMockList.tasks.filter((task) => task.completed === false);
     });
-    
+
     mockCompleted();
-    
+
     expect(myMockList.tasks.length).toBe(2);
   });
 });

@@ -51,6 +51,7 @@ describe('Delete task', () => {
   test('Should be define', () => {
     expect(myMockList.deleteTask).toBeDefined();
   });
+
   test('should delete task from localstorage', () => {
     const listLength = myMockList.tasks.length;
     myMockList.deleteTask();
@@ -59,6 +60,10 @@ describe('Delete task', () => {
   });
 
   describe('Editing task', () => {
+    test('Should be define', () => {
+      expect(myMockList.editTask).toBeDefined();
+    });
+
     test('Should edit an existing task', () => {
       const newTask = document.getElementById('new-task');
       newTask.value = 'Task 1';

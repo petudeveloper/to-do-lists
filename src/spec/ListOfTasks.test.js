@@ -39,7 +39,10 @@ describe('Add task', () => {
   });
 
   test('should add new task to the localstorage', () => {
-    myMockList.addTask('Task 1');
+    const newTask = document.getElementById('new-task');
+    newTask.value = 'Task 1';
+    myMockList.addTask();
+
     expect(myMockList.tasks.length).toBe(1);
   });
 });
@@ -53,5 +56,17 @@ describe('Delete task', () => {
     myMockList.deleteTask();
 
     expect(myMockList.tasks.length).toBe(listLength - 1);
+  });
+
+  describe('Editing task', () => {
+    test('Should edit an existing task', () => {
+      const newTask = document.getElementById('new-task');
+      newTask.value = 'Task 1';
+      myMockList.addTask();
+
+      myMockList.tasks[0].description = 'task 2';
+
+      expect(myMockList.tasks[0].description).toBe('task 2');
+    });
   });
 });

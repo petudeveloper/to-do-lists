@@ -33,6 +33,10 @@ To get a local copy up and running follow these simple example steps.
 - Build your app: run ```npm run build```.
 - Deploy local server: run ```npm start build```.
 
+### Testing
+
+- Use the command ```npm test``` as it is show on screenshot.png
+
 ## Authors
 
 👤 **David Alvarez Mazzo**

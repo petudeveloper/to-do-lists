@@ -3,13 +3,12 @@
  */
 
 import ListOfTasks from '../task-list.js';
-import LocalStorageMock from '../mock';
 
 // Arrange
 const myMockList = new ListOfTasks();
 
 beforeAll(() => {
-  global.localStorage = new LocalStorageMock();
+  global.localStorage.myTasks = {};
   document.body.innerHTML = `
   <div class="main-container">
     <h1 class="text-center">My To-do list!</h1>
@@ -41,7 +40,6 @@ describe('Add task', () => {
 
   test('should add new task to the localstorage', () => {
     myMockList.addTask('Task 1');
-
     expect(myMockList.tasks.length).toBe(1);
   });
 });

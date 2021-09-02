@@ -90,14 +90,11 @@ describe('updateCompleteStatus for task', () => {
     const newTask = document.getElementById('new-task');
     newTask.value = 'Task 2';
     myMockList.addTask();
-    myMockList.populateList();
     const index = myMockList.tasks.length - 1;
-    const checkbox = document.getElementById(`check-${index}`);
     const mockChange = jest.fn(() => {
       myMockList.tasks[index].complete = !myMockList.tasks[index].complete
     });
 
-    checkbox.checked = true;
     mockChange();
 
     expect(myMockList.tasks[index].complete).toBeTruthy();

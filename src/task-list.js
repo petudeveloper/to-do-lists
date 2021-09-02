@@ -4,7 +4,6 @@ import Task from './task.js';
 export default class ListOfTasks {
   constructor() {
     this.tasks = (localStorage.myTasks != null) ? JSON.parse(localStorage.myTasks) : [];
-    this.populateList();
   }
 
   updateLocalStorage() {
@@ -55,27 +54,9 @@ export default class ListOfTasks {
   }
 
   // function for deleting a task
-  deleteTask() {
-    for (const task of this.tasks) {
-      const divContainer = document.getElementById(`div-${task.index}`);
-      const taskIcon = document.getElementById(`icon-${task.index}`);
-      const trash = document.getElementById(`trash-icon-${task.index}`);
-      divContainer.addEventListener('focusin', () => {
-        taskIcon.classList.add('d-none');
-        trash.classList.remove('d-none');
-      });
-      divContainer.addEventListener('focusout', () => {
-        setTimeout(() => {
-          taskIcon.classList.add('d-block');
-          taskIcon.classList.remove('d-none');
-          trash.classList.add('d-none');
-        }, 100);
-      });
-      trash.addEventListener('click', () => {
-        this.tasks.splice(task.index, 1);
-        this.#updateIndexes();
-      });
-    }
+  deleteTask(index) {
+    this.tasks.splice(index, 1);
+    this.#updateIndexes();
   }
 
   // function for the "Clear all completed" button
@@ -105,9 +86,30 @@ export default class ListOfTasks {
               </li>
               `;
     }
+    // Event listeners
+    for (const task of this.tasks) {
+      const divContainer = document.getElementById(`div-${task.index}`);
+      const taskIcon = document.getElementById(`icon-${task.index}`);
+      const trash = document.getElementById(`trash-icon-${task.index}`);
+
+      divContainer.addEventListener('focusin', () => {
+        taskIcon.classList.add('d-none');
+        trash.classList.remove('d-none');
+      });
+      divContainer.addEventListener('focusout', () => {
+        setTimeout(() => {
+          taskIcon.classList.add('d-block');
+          taskIcon.classList.remove('d-none');
+          trash.classList.add('d-none');
+        }, 100);
+      });
+
+      // Deleting
+      trash.addEventListener('click', () => this.deleteTask(task.index));
+    }
+
     this.editTask();
     this.updateCompleteStatus();
-    this.deleteTask();
     this.clearAll();
   }
 }

@@ -58,20 +58,20 @@ describe('Delete task', () => {
 
     expect(myMockList.tasks.length).toBe(listLength - 1);
   });
+});
 
-  describe('Editing task', () => {
-    test('Should be define', () => {
-      expect(myMockList.editTask).toBeDefined();
-    });
+describe('Editing task', () => {
+  test('Should be define', () => {
+    expect(myMockList.editTask).toBeDefined();
+  });
 
-    test('Should edit an existing task', () => {
-      const newTask = document.getElementById('new-task');
-      newTask.value = 'Task 1';
-      myMockList.addTask();
+  test('Should edit an existing task', () => {
+    const newTask = document.getElementById('new-task');
+    newTask.value = 'Task 1';
+    myMockList.addTask();
 
-      myMockList.tasks[0].description = 'task 2';
+    myMockList.tasks[0].description = 'task 2';
 
-      expect(myMockList.tasks[0].description).toBe('task 2');
-    });
+    expect(myMockList.tasks[0].description).toBe('task 2');
   });
 });

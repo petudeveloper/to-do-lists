@@ -101,6 +101,7 @@ export default class ListOfTasks {
               </li>
               `;
       }
+      this.clearAll();
       this.#addListeners();
     }
 }

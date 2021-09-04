@@ -3,13 +3,12 @@
  */
 
 import ListOfTasks from '../task-list.js';
-import LocalStorageMock from '../mock';
 
 // Arrange
 const myMockList = new ListOfTasks();
 
 beforeAll(() => {
-  global.localStorage = new LocalStorageMock();
+  global.localStorage.myTasks = {};
   document.body.innerHTML = `
   <div class="main-container">
     <h1 class="text-center">My To-do list!</h1>
@@ -40,7 +39,9 @@ describe('Add task', () => {
   });
 
   test('should add new task to the localstorage', () => {
-    myMockList.addTask('Task 1');
+    const newTask = document.getElementById('new-task');
+    newTask.value = 'Task 1';
+    myMockList.addTask();
 
     expect(myMockList.tasks.length).toBe(1);
   });
@@ -50,10 +51,88 @@ describe('Delete task', () => {
   test('Should be define', () => {
     expect(myMockList.deleteTask).toBeDefined();
   });
+
   test('should delete task from localstorage', () => {
     const listLength = myMockList.tasks.length;
     myMockList.deleteTask();
 
     expect(myMockList.tasks.length).toBe(listLength - 1);
+  });
+});
+
+describe('Editing task', () => {
+  test('Should be define', () => {
+    expect(myMockList.editTask).toBeDefined();
+  });
+
+  test('Should edit an existing task', () => {
+    const newTask = document.getElementById('new-task');
+    newTask.value = 'Task 1';
+    myMockList.addTask();
+    const index = myMockList.tasks.length - 1;
+    const mockEdit = jest.fn((text) => {
+      myMockList.tasks[index].description = text;
+    });
+
+    const newText = 'task 2';
+    mockEdit(newText);
+
+    expect(myMockList.tasks[0].description).toBe('task 2');
+  });
+});
+
+describe('updateCompleteStatus for task', () => {
+  test('Should be define', () => {
+    expect(myMockList.updateCompleteStatus).toBeDefined();
+  });
+
+  test('Should the status of an existing task', () => {
+    const newTask = document.getElementById('new-task');
+    newTask.value = 'Task 2';
+    myMockList.addTask();
+    const index = myMockList.tasks.length - 1;
+    const mockChange = jest.fn(() => {
+      myMockList.tasks[index].complete = !myMockList.tasks[index].complete;
+    });
+
+    mockChange();
+
+    expect(myMockList.tasks[index].complete).toBeTruthy();
+  });
+});
+
+describe('Clear all completed', () => {
+  test('Should be define', () => {
+    expect(myMockList.clearAll).toBeDefined();
+  });
+
+  test('Delete all complete task', () => {
+    myMockList.tasks = [{
+      description: 'task1',
+      completed: false,
+      index: 0,
+    },
+    {
+      description: 'task 2',
+      completed: true,
+      index: 1,
+    },
+    {
+      description: 'task3',
+      completed: false,
+      index: 2,
+    },
+    {
+      description: 'task 4',
+      completed: true,
+      index: 3,
+    }];
+    const mockCompleted = jest.fn(() => {
+      myMockList.tasks = myMockList.tasks.filter((task) => task.completed === false);
+    });
+
+    mockCompleted();
+
+    expect(myMockList.tasks.length).toBe(2);
   });
 });

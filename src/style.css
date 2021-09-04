@@ -35,7 +35,7 @@ ul {
   cursor: pointer;
 }
 
-.draggable{
+.draggable {
   cursor: move;
 }
 
@@ -44,5 +44,5 @@ ul {
 }
 
 .listSelected {
-  background-color: rgba(255, 249, 164, 0.884)
+  background-color: rgba(255, 249, 164, 0.884);
 }

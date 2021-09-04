@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-restricted-syntax */
 import Task from './task.js';

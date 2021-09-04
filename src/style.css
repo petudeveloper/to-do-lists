@@ -42,3 +42,7 @@ ul {
 .dragging {
   opacity: 0.5;
 }
+
+.listSelected {
+  background-color: rgba(255, 249, 164, 0.884)
+}

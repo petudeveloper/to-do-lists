@@ -69,12 +69,14 @@ export default class ListOfTasks {
       divContainer.addEventListener('focusin', () => {
         taskIcon.classList.add('d-none');
         trash.classList.remove('d-none');
+        listContainer.classList.toggle('listSelected');
       });
       divContainer.addEventListener('focusout', () => {
         setTimeout(() => {
           taskIcon.classList.add('d-block');
           taskIcon.classList.remove('d-none');
           trash.classList.add('d-none');
+          listContainer.classList.toggle('listSelected');
         }, 100);
       });
 
@@ -146,7 +148,7 @@ export default class ListOfTasks {
                   <div id="div-${task.index}" class="w-100 d-flex justify-content-between">
                       <div class="w-100">
                           <input type="checkbox" id="check-${task.index}" ${task.completed ? 'checked' : ''}>
-                          <input type="text" id="span-${task.index}" class="w-75 px-2 border-0 ${task.completed ? 'task-completed' : ''}" value="${task.description}"></input>
+                          <input type="text" id="span-${task.index}" class="bg-transparent w-75 px-2 border-0 ${task.completed ? 'task-completed' : ''}" value="${task.description}"></input>
                       </div>
                       <i id="icon-${task.index}" class="clickable fas fa-ellipsis-v text-secondary"></i>
                       <i id="trash-icon-${task.index}" class="clickable d-none far fa-trash-alt"></i>

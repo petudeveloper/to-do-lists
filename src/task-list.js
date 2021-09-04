@@ -25,7 +25,7 @@ export default class ListOfTasks {
     const newTask = document.getElementById('new-task');
     this.tasks.push(new Task(newTask.value, this.tasks.length));
     this.updateLocalStorage();
-    this.populateList();
+    this.#updateIndexes();
     newTask.value = '';
   }
 

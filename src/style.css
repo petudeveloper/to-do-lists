@@ -34,3 +34,15 @@ ul {
 .clickable:hover {
   cursor: pointer;
 }
+
+.draggable {
+  cursor: move;
+}
+
+.dragging {
+  opacity: 0.5;
+}
+
+.listSelected {
+  background-color: rgba(255, 249, 164, 0.884);
+}

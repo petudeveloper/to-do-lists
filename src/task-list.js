@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-restricted-syntax */
 import Task from './task.js';
 
@@ -18,6 +19,17 @@ export default class ListOfTasks {
     });
     this.updateLocalStorage();
     this.populateList();
+  }
+
+  #moveArrayItemToNewIndex(oldIndex, newIndex) {
+    if (newIndex >= this.tasks.length) {
+      let k = newIndex - this.tasks.length + 1;
+      while (k--) {
+        this.tasks.push(undefined);
+      }
+    }
+    this.tasks.splice(newIndex, 0, this.tasks.splice(oldIndex, 1)[0]);
+    this.updateLocalStorage();
   }
 
   // function for adding a new task
@@ -52,6 +64,7 @@ export default class ListOfTasks {
       const trash = document.getElementById(`trash-icon-${task.index}`);
       const taskDescription = document.getElementById(`span-${task.index}`);
       const checkbox = document.getElementById(`check-${task.index}`);
+      const listContainer = document.getElementById(`li-${task.index}`);
 
       divContainer.addEventListener('focusin', () => {
         taskIcon.classList.add('d-none');
@@ -80,8 +93,48 @@ export default class ListOfTasks {
 
       // Deleting
       trash.addEventListener('click', () => this.deleteTask(task.index));
+
+      // Dragg and Drop
+      listContainer.addEventListener('dragstart', () => {
+        listContainer.classList.add('dragging');
+      });
+      listContainer.addEventListener('dragend', (e) => {
+        const element = e.target;
+        const ul = [...document.querySelectorAll('ul li')];
+        const newIndex = ul.findIndex((li) => li.id === element.id);
+        this.#moveArrayItemToNewIndex(task.index, newIndex);
+        listContainer.classList.remove('dragging');
+        this.#updateIndexes();
+        this.updateLocalStorage();
+      });
     }
   }
+
+    // function for drag task feature
+    dragTask() {
+      function getDragAfterElement(y) {
+        const draggableElements = [...document.querySelectorAll('.draggable:not(.dragging')];
+        return draggableElements.reduce((closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset, element: child };
+          }
+          return closest;
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+      }
+      const tasksList = document.getElementById('list-of-tasks');
+      tasksList.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(e.clientY);
+        const draggable = document.querySelector('.dragging');
+        if (afterElement == null) {
+          tasksList.appendChild(draggable);
+        } else {
+          tasksList.insertBefore(draggable, afterElement);
+        }
+      });
+    }
 
     // function for rendering list of tasks
     populateList() {
@@ -89,7 +142,7 @@ export default class ListOfTasks {
       tasksList.innerHTML = '';
       for (const task of this.tasks) {
         tasksList.innerHTML += `
-              <li class="w-100 p-3 border-bottom">
+              <li id="li-${task.index}" class="w-100 p-3 border-bottom draggable" draggable="true">
                   <div id="div-${task.index}" class="w-100 d-flex justify-content-between">
                       <div class="w-100">
                           <input type="checkbox" id="check-${task.index}" ${task.completed ? 'checked' : ''}>
@@ -103,5 +156,6 @@ export default class ListOfTasks {
       }
       this.clearAll();
       this.#addListeners();
+      this.dragTask();
     }
 }

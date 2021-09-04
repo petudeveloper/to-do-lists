@@ -2,9 +2,9 @@
 
 # To-Do-list
 
->"To-do list" is a tool that helps to organize your day. It simply lists the things that you need to do and allows you to mark them as complete.
+>"To-do list" is a tool that helps to organize your day. It simply lists the things that you need to do and allows you to mark them as complete. In the video below you can watch how it looks and behaves.
 
-![screenshot](docs/screenshot.png)
+[![Minimalist example](https://img.youtube.com/vi/AcUd-_Yjjqg/0.jpg)](https://www.youtube.com/watch?v=AcUd-_Yjjqg)
 
 ## Built With
 

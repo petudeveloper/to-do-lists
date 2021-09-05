@@ -6,6 +6,14 @@
 
 [![Minimalist example](https://img.youtube.com/vi/AcUd-_Yjjqg/0.jpg)](https://www.youtube.com/watch?v=AcUd-_Yjjqg)
 
+## Features
+
+  - Adding a new task.
+  - Removing a selected task.
+  - Reordering a selected task (as drag-and-drop).
+  - Marking a selected task as complete.
+  - Removing all tasks marked as complete at once.
+
 ## Built With
 
 - HTML

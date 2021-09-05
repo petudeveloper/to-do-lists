@@ -61,10 +61,6 @@ describe('Delete task', () => {
 });
 
 describe('Editing task', () => {
-  test('Should be define', () => {
-    expect(myMockList.editTask).toBeDefined();
-  });
-
   test('Should edit an existing task', () => {
     const newTask = document.getElementById('new-task');
     newTask.value = 'Task 1';
@@ -82,10 +78,6 @@ describe('Editing task', () => {
 });
 
 describe('updateCompleteStatus for task', () => {
-  test('Should be define', () => {
-    expect(myMockList.updateCompleteStatus).toBeDefined();
-  });
-
   test('Should the status of an existing task', () => {
     const newTask = document.getElementById('new-task');
     newTask.value = 'Task 2';

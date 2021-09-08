@@ -32,12 +32,12 @@ To get a local copy up and running follow these simple example steps.
 
 ### Setup
 
-- clone: run ```https://github.com/petumazo/to-do-lists.git```.
+- clone: run ``` git clone https://github.com/petumazo/to-do-lists.git```.
 - Move to cloned folder: run ```git cd TO-DO-LISTS```.
 
 ### Install
 
-- Install the dependencies in the local node_modules folder: run ```npm intall```.
+- Install the dependencies in the local node_modules folder: run ```npm install```.
 - Build your app: run ```npm run build```.
 - Deploy local server: run ```npm start build```.
 

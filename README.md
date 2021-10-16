@@ -23,7 +23,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://petumazo.github.io/to-do-lists/)
+[Live Demo Link](https://petudeveloper.github.io/to-do-lists/)
 
 
 ## Getting Started
